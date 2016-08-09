@@ -1,0 +1,187 @@
+<link rel="import" href="../js/bower_components/polymer/polymer.html"></link>
+
+
+
+
+<dom-module id="nshpage-web-editor">
+
+<style>
+.web-editor {
+	border-style: solid;
+	margin-top : 20px;
+	overflow : hidden;
+	width : 620px;
+	vertical-align : middle;
+	color : black;
+	text-align: left;
+}
+.editor-button {
+	min-width: 20px;
+}
+.editor-icon {
+	width : 20px;
+	height : 20px;
+}
+
+
+</style>
+
+
+
+<template>
+	<div class="web-editor">
+		<button
+    		class="jscolor {valueElement:valueInput,value:'000000'}" id="web-editor-color-picker"
+    		style="width:65px; height:23px;">
+		</button>
+		<input id="valueInput" value="000000" hidden>
+		<paper-button toggles raised noink class="editor-button" id="web-editor-bold" on-tap="bold">
+			<iron-icon class="editor-icon" icon="editor:format-bold"></iron-icon>
+		</paper-button>
+		<paper-button toggles raised noink class="editor-button" id="web-editor-italic" on-tap="italic">
+			<iron-icon class="editor-icon" icon="editor:format-italic"></iron-icon>
+		</paper-button>
+		<paper-button toggles raised noink class="editor-button" id="web-editor-underline" on-tap="underline">
+			<iron-icon class="editor-icon" icon="editor:format-underlined"></iron-icon>
+		</paper-button>
+		<paper-button toggles raised noink class="editor-button" id="web-editor-strikethrough" on-tap="strikethrought">
+			<iron-icon class="editor-icon" icon="editor:format-strikethrough"></iron-icon>
+		</paper-button>
+		<paper-button  raised  class="editor-button" id="web-editor-justify" on-tap="justify">
+			<iron-icon class="editor-icon" icon="editor:format-align-justify"></iron-icon>
+		</paper-button>
+		<paper-button  raised  class="editor-button" id="web-editor-align-left" on-tap="align_left">
+			<iron-icon class="editor-icon" icon="editor:format-align-left"></iron-icon>
+		</paper-button>
+		<paper-button  raised  class="editor-button" id="web-editor-align-center" on-tap="align_center">
+			<iron-icon class="editor-icon" icon="editor:format-align-center"></iron-icon>
+		</paper-button>
+		<paper-button  raised  class="editor-button" id="web-editor-align-right" on-tap="align_right">
+			<iron-icon class="editor-icon" icon="editor:format-align-right"></iron-icon>
+		</paper-button>
+		
+	</div>
+</template>
+
+<script>
+Polymer({
+    is: "nshpage-web-editor",
+    properties : {
+    	
+	},
+    ready : function(){
+    },
+    
+    bold : function(){
+    	if($("#web-editor-bold").prop("active") == true) {
+    		document.execCommand("bold", true);	
+    	} else {
+    		document.execCommand("bold", false);
+    	}
+    	//얘네를 클릭하면 원래 커서로 제대로 돌아올 수 있도록 해야한다. 관련되어 메서드를 아에 만들자.
+    	
+    },
+    italic : function(){
+    	if($("#web-editor-italic").prop("active") == true) {
+    		document.execCommand("italic", true);	
+    	} else {
+    		document.execCommand("italic", false);
+    	}
+    },
+    underline : function(){
+    	if($("#web-editor-underline").prop("active") == true) {
+    		document.execCommand("underline", true);	
+    	} else {
+    		document.execCommand("underline", false);
+    	}
+    },
+    strikethrought : function(){
+    	if($("#web-editor-strikethrough").prop("active") == true) {
+    		document.execCommand("strikethrough", true);	
+    	} else {
+    		document.execCommand("strikethrough", false);
+    	}
+    },
+    justify : function(){
+    	document.execCommand("justifyFull", true);	
+    },
+    align_left : function(){
+    	document.execCommand("justifyLeft", true);
+    },
+    align_center : function(){
+    	document.execCommand("justifyCenter", true);
+    },
+    align_right : function(){
+    	document.execCommand("justifyRight", true);	
+    	
+    }
+  })
+  
+ 	var nshpage_web_editor = document.createElement("nshpage-web-editor");
+	var range;
+	var currentStart;
+	var currentEnd;
+	var endContainer;
+  
+  $(function(){
+	  
+	  $("#basic-board").focus();
+	  
+	  $("#valueInput").change(function(){
+		  var range = window.getSelection().getRangeAt(0);
+		  range.setStart(endContainer, currentStart);
+		  range.setEnd(endContainer, currentEnd);
+		  document.execCommand("ForeColor", false, $("#valueInput").val() );
+		  document.getElementById('web-editor-color-picker').jscolor.hide()
+	  });
+	  
+	  $("#web-editor-color-picker").click(function(){
+		  
+		  
+	  })
+	  
+	  $("#basic-board").focusout(function(){
+		  range = window.getSelection().getRangeAt(0);
+		  currentStart = range.startOffset;
+		  currentEnd = range.endOffset;
+		  endContainer = range.endContainer;
+	  })
+	  
+	  $("#basic-board").click(function(){
+		  //console.log(document.getElementById("web-editor-color-picker").jscolor);
+		  //jquery와 getElement의 차이
+		  range = window.getSelection().getRangeAt(0);
+		  currentStart = range.startOffset;
+		  currentEnd = range.endOffset;
+		  endContainer = range.endContainer;
+		  
+		  var tempContainer = endContainer;
+		  //console.log(this);
+		  //console.log($(endContainer).parent().prop("color")); 
+		  
+		  var a = 0;
+		  while(a < 10){
+			  if ( $(tempContainer).attr("id") == "basic-board") {
+				  //console.log("div");
+				  $("#valueInput").val("000000");
+				  document.getElementById("web-editor-color-picker").jscolor.importColor();
+				  return;
+			  } else if ($(tempContainer).prop("color") == null) {
+				  //console.log("null");
+				  tempContainer = $(tempContainer).parent();
+				  a++;
+				  continue;
+			  }else if($(tempContainer).prop("color") != undefined){
+				  console.log($(tempContainer).prop("color"));
+				  $("#valueInput").val($(tempContainer).prop("color"));
+				  document.getElementById("web-editor-color-picker").jscolor.importColor();
+				  return;
+			  }
+		  }
+	  })
+  })
+  
+	  
+</script>
+
+</dom-module>

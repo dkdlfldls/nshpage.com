@@ -1,0 +1,117 @@
+<link rel="import" href="../js/bower_components/polymer/polymer.html"></link>
+<dom-module id="nshpage-top-nev">
+
+<style>
+	.navbar {
+		margin-bottom: 0px;
+	}
+	
+	.nshpage-top-nev-visivle {
+		visibility: visible;
+	}
+	.nshpage-top-nev-hidden {
+		visibility: hidden;
+	}
+</style>
+
+
+<template>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li> 
+      <li><a href="#">Page 3</a></li> 
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right" id="nshpage-top-nev-login">
+    	<li id="join"><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      	<li id="login"><a href="#"><span id="login_btn_span"></span></a></li>
+      
+    </ul>
+  </div>
+</nav>
+</template>
+
+
+<script>
+Polymer({
+    is: "nshpage-top-nev" ,	
+    
+    properties : {
+    	
+	},
+	ready : function(){
+		this.check_login();
+	},
+	
+	
+	change_login_btn : function(){
+		$("#login_btn_span").prop("class", "glyphicon glyphicon-log-in").text(" Login");
+		$("#login_btn_span").data("isLogin" , false);
+		$("#join").removeClass("nshpage-top-nev-hidden");
+	},
+	change_logout_btn : function(){
+		$("#login_btn_span").prop("class", "glyphicon glyphicon-log-out").text(" Logout");
+		$("#login_btn_span").data("isLogin" , true);
+		$("#join").addClass("nshpage-top-nev-hidden");
+	},
+	logout_request : function(){
+		var change_login_btn = this.change_login_btn;
+		$.post(
+			"/ajax/logout",
+			{},
+			function(data, status){
+				if (data == true) {
+					change_login_btn();
+				}
+			}
+		)
+	},
+	check_login : function(){
+		var change_logout_btn = this.change_logout_btn;
+		var change_login_btn = this.change_login_btn;
+		$.post(
+				"/ajax/checkLogin",
+				{ },
+				function(data, status){
+					
+					if (data == true) {
+						change_logout_btn();
+					} else {
+						change_login_btn();
+					}
+				}
+			)
+	}
+  });
+  
+  
+ 
+$(function(){
+	var nshpage_top_nev = document.createElement("nshpage-top-nev");
+	
+	//id=login
+	$("#login").click(function(){
+		
+		if ($("#login_btn_span").data("isLogin") == true) {
+			nshpage_top_nev.logout_request();
+			console.log("logout합니다");
+			//logout기능 삽입
+		} else {
+			$("#login-modal").modal("show");
+		}
+		
+	})
+	
+})
+
+</script>
+
+
+
+</dom-module>

@@ -1,0 +1,162 @@
+<link rel="import" href="../js/bower_components/polymer/polymer.html"></link>
+<dom-module id="nshpage-login-modal">
+
+<style>
+paper-button.login {
+    background-color: #f2f2f2;
+    color: black;
+    --paper-button-raised-keyboard-focus: {
+      background-color: #f2f2f2 !important;
+      color: white !important;
+    };
+  }
+.login-warning-text {
+  	text-align: left;
+  	color: #ff704d;
+  	font-size: medium;
+  	font-style: oblique;
+  }
+</style>
+
+
+<template>
+<div id="login-modal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content" id="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">로그인 하지 않아도 대부분의 자료를 볼 수 있습니다.</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-8">
+						<paper-input label="email" id="login_email"
+							auto-validate pattern="{{regExp_email}}"
+							error-message="메일형식 ex)aa@aa.com" > 
+							<iron-icon prefix icon="mail" title="email"></iron-icon>
+							<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="login_email_clear"></paper-icon-button> 
+						</paper-input>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-8">
+						<paper-input label="password" id="login_password" type="password"
+							auto-validate pattern="{{regExp_password}}"
+							error-message="영문 숫자 6~16자리" > 
+							<iron-icon prefix icon="communication:vpn-key" title="password"></iron-icon>
+							<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="login_password_clear"></paper-icon-button> 
+						</paper-input>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-sm-4">
+						<p class="login-warning-text" id="login_footer_text"></p>
+					</div>
+					<div class="col-sm-8">
+						<paper-button raised class="login" id="login_button">로그인</paper-button>
+						<paper-button raised class="login" id="login_find_password">비밀번호찾기</paper-button>
+						<paper-button raised class="login" id="login_join">회원가입</paper-button>
+						<paper-button raised class="login" data-dismiss="modal">취소</paper-button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+</template> 
+
+<script>
+	Polymer({
+		is : "nshpage-login-modal",
+		
+		properties : {
+			regExp_email : {
+				type : "String",
+				value : "([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}"
+			},
+			regExp_password : {
+				type : "String",
+				value : "([0-9a-zA-Z]{6,16})"
+			}
+			
+		},
+		
+		login : function() {
+			//1.빈칸전송은 그냥 사전에 막음 auto-de
+			//2.아작스로 id, password전송
+			/*
+			1. ajax로 세션의 login 을 확인하여 true인지  false인지 확인한다.
+			true인경우 logout처리를 하며 false인경우 login처리를 한다.
+			*/
+			if ($("#login_email").val == "") {
+				$("#login_footer_text").text("email칸이 비어있습니다.");
+			} else if ($("#login_email").prop("invalid") == true) {
+				$("#login_footer_text").text("email 입력양식을 확인하세요");
+			} else if ($("#login_password").val() == "" ) {
+				$("#login_footer_text").text("password칸이 비어있습니다.");
+			} else if ($("#login_password").prop("invalid") == true) {
+				$("#login_footer_text").text("비밀번호 입력양식을 확인하세요");
+			} else {
+				$.post(
+						"/ajax/login_request",
+						{
+							email : $("#login_email").val(),
+							password : $("#login_password").val()
+						},
+						function(data, status){
+							if (data == true) {
+								//로그인 성공
+								//로그인버튼을 logout으로 바꿔야한다.
+								var nshpage_top_nev = document.createElement("nshpage-top-nev");
+								nshpage_top_nev.change_logout_btn();
+								$("#login-modal").modal("hide");
+							} else {
+								$("#login_footer_text").text("로그인에 실패하였습니다. password 및 email을 확인하세요");
+								
+							}
+						}
+						
+						
+				)
+				$("#login_footer_text").text("ok");
+			}
+			
+		},
+		email_clear : function() {
+			$("#login_email").val("");
+		},
+		password_clear : function() {
+			$("#login_password").val("");
+		}
+
+	});
+	var login_modal = document.createElement("nshpage-login-modal");
+	$(function() {
+		$("#login_button").click(function() {
+			login_modal.login();
+		});
+
+		$("#login_email_clear").click(function() {
+			login_modal.email_clear();
+		})
+
+		$("#login_password_clear").click(function() {
+			login_modal.password_clear();
+		})
+		
+		$("#login_join").click(function(){
+			$("#login-modal").modal("hide");
+			$("#join-modal").modal("show");
+		})
+		
+	})
+</script> </dom-module>

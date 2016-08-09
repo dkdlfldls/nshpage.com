@@ -1,0 +1,114 @@
+<link rel="import" href="../js/bower_components/polymer/polymer.html"></link>
+<link rel="import" href="/resources/elements/nshpage-web-editor.html">
+<dom-module id="nshpage-basic-board-write">
+
+<style>
+
+.flex-horizontal-with-ratios {
+    @apply(--layout-horizontal);
+  }
+  .flex1 {
+    @apply(--layout-flex);
+  }
+  .flex2 {
+    @apply(--layout-flex-2);
+  }
+  .flex3 {
+    @apply(--layout-flex-3);
+  }
+  
+  .board_content {
+	border-style: double;
+	margin-top: 10px;
+	background-color: white;
+	font-family: Dotum;
+	color : black;
+	outline-offset: 30px;
+	overflow: scroll;
+	max-height: 400px;
+	max-width: 624px;
+	height: 400px;
+	width:624px;
+	text-align: left;
+	}
+	
+	
+	.board-content-bold {
+		font-weight: bold;
+	}
+	
+	.nshpage-basic-board-write-active-btn {
+		border: 2px solid;
+	}
+
+</style>
+
+
+<template> 
+
+<div>
+	<label for="title">제목 : </label> 
+	<input type="text" id="nshpage-basic-board-title">
+	
+</div>
+	
+<div>
+	<label for="writer">작성자 : </label> 
+	<input type="text" id="nshpage-basic-board-writer">
+</div>
+<div>
+	
+	<nshpage-web-editor></nshpage-web-editor>
+</div>
+<div>
+	<label class="control-label" for="content">내용 : </label> 
+	<div class="board_content" contenteditable="true" id="basic-board"></div> 
+</div>
+<div>
+	<button type="button" id="basic-board-save" on-tap="write">저장</button>
+	<button type="button" id="basic-board-cancel">취소</button>
+</div>
+
+</template>
+
+<script>
+	Polymer({
+		is : "nshpage-basic-board-write",
+		properties : {
+
+		},
+
+		ready : function() {
+
+		},
+		write : function() {
+			console.log("req")
+			
+			$.post(
+				"/ajax/board/write?board=basic",
+				{
+					title : $("#nshpage-basic-board-title").val(),
+					writer : $("#nshpage-basic-board-writer").val(),
+					content : $("#basic-board").html()
+					
+				},
+				function(data, status){
+					console.log(status);
+					console.log(data);
+				}
+			)
+			
+		}
+		
+	});
+	
+	
+	var nshpage_basic_board_write = document.createElement("nshpage-basic-board-write");
+	
+	
+	$(function(){
+		
+		
+	})
+</script> 
+</dom-module>

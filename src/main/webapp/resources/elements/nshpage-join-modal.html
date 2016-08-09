@@ -1,0 +1,304 @@
+<link rel="import" href="../js/bower_components/polymer/polymer.html"></link>
+<dom-module id="nshpage-join-modal">
+
+<style>
+paper-button.join {
+	background-color: #f2f2f2;
+	color: black; -
+	-paper-button-raised-keyboard-focus: { background-color : #f2f2f2
+		!important;
+	color: white !important;
+	};
+}
+
+
+.flex-horizontal-with-ratios {
+    @apply(--layout-horizontal);
+    height: 55px;
+  }
+  .flex1 {
+    @apply(--layout-flex);
+    margin-top : 0px;
+    height: 39.59px;
+  }
+  .flex2 {
+    @apply(--layout-flex-2);
+    height: 39.59px;
+  }
+  .flex3 {
+    height: 39.59px;
+    width: 300px;
+    margin-top: -25px;
+  }
+  
+  paper-toggle-button.green {
+    --paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-teal-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-teal-500);
+  }
+  paper-toggle-button.pink {
+    --paper-toggle-button-checked-bar-color:  var(--paper-pink-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-pink-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-pink-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-indigo-900);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-indigo-900);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-indigo-900);
+  }
+  .join-warning-text {
+  	text-align: left;
+  	color: #ff704d;
+  	font-size: medium;
+  	font-style: oblique;
+  }
+  
+</style>
+
+
+<template>
+<div id="join-modal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">메일주소의 실제 비밀번호를 사용하지 마십시오</h4>
+				<h4 class="modal-title">보안상 문제가 발생할 수 있습니다.</h4>
+			</div>
+			<div class="modal-body">
+			
+				<!-- 이메일 입력 -->
+				<div class="flex-horizontal-with-ratios">
+					<paper-input label="email" class="flex3" 
+						auto-validate pattern="{{regExp_email}}" 
+						error-message="메일형식 ex)aa@aa.com " 
+						id="join_email" > 
+						<iron-icon prefix icon="mail" title="email"></iron-icon> 
+						 
+					</paper-input>
+					<div class="flex1">
+						<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="join_email_clear"></paper-icon-button>
+					</div>
+					<!-- 이메일로 코드를 보낸다. 메일 주소 바뀌면 재확인 하도록 해야함 -->
+					<paper-button raised class="join flex1" id="join_send_email_code">메일확인 코드전송</paper-button>
+				</div>
+				
+				<!-- 입력 이메일로 코드 전송한거 확인 change이벤트로 ajax보내서 확인 -->
+				<div class="flex-horizontal-with-ratios">
+					<paper-input label="mail code" class="flex3" id="join_email_checker"> 
+						<iron-icon prefix icon="check-box" title="auth_code"></iron-icon>	
+					</paper-input>
+					<div class="flex1">
+						<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="join_email_checker_clear"></paper-icon-button>
+					</div>
+				</div>
+				
+				<!-- password 입력 -->
+				<div class="flex-horizontal-with-ratios">
+					<paper-input label="password" class="flex3" 
+						auto-validate pattern="{{regExp_password}}" 
+						error-message="영문 숫자 6~16자리" 
+						id="join_first_password"> 
+						<iron-icon prefix icon="communication:vpn-key" title="password"></iron-icon>	
+					</paper-input>
+					<div class="flex1">
+						<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="join_first_password_clear"></paper-icon-button>
+					</div>
+					
+				</div>
+				
+				<!-- password확인 -->
+				<div class="flex-horizontal-with-ratios">
+					<paper-input label="check password" class="flex3"
+					 	auto-validate pattern="{{regExp_password}}" 
+					 	error-message="영문 숫자 6~16자리" 
+						id="join_second_password"> 
+						<iron-icon prefix icon="communication:vpn-key" title="password"></iron-icon>	
+					</paper-input>
+					<div class="flex1">
+						<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="join_second_password_clear"></paper-icon-button>
+					</div>
+				</div>
+				
+				<!-- 이름 입력 -->
+				<div class="flex-horizontal-with-ratios">
+					<paper-input label="name" class="flex3" is="iron-input" 
+						 auto-validate pattern="{{regExp_name}}" 
+						 error-message="1~12자 이름 입력" 
+						 id="join_name">
+						<iron-icon prefix icon="accessibility" title="name"></iron-icon>	
+					</paper-input>
+					<div class="flex1">
+						<paper-icon-button suffix icon="clear" alt="clear" title="clear" id="join_name_clear"></paper-icon-button>
+					</div>
+					
+				</div>
+						
+				
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-sm-8">
+						<p class="join-warning-text" id="footer_text"></p>
+					</div>
+					<div class="col-sm-4">
+						<paper-button raised class="join" id="join_request">회원가입</paper-button>
+						<paper-button raised class="join" data-dismiss="modal">취소</paper-button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+</template> 
+<script>
+	Polymer({
+		is : "nshpage-join-modal",
+		
+		properties : {
+			join_name_validate : {
+				type : "Boolean",
+				value : "false"
+			},
+			regExp_name : {
+				type : "String",
+				value : "[a-zA-Z\uac00-\ud7a3]{1,12}"
+			},
+			regExp_email : {
+				type : "String",
+				value : "([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}"
+			},
+			regExp_password : {
+				type : "String",
+				value : "([0-9a-zA-Z]{6,16})"
+			}
+		},
+		
+		join_email_clear : function() {
+			$("#join_email").val("");
+		},
+		join_mail_code_clear : function() {
+			$("#join_email_checker").val("");
+		},
+		join_first_password_clear : function() {
+			$("#join_first_password").val("");
+		},
+		join_second_password_clear : function() {
+			$("#join_second_password").val("");
+		},
+		join_name_clear : function() {
+			$("#join_name").val("");
+		},
+		
+		send_code : function() {
+			//메일 형식을 검사한다.
+			if(($("#join_email").prop("invalid") == false) && ($("#join_email").val() != "")) {
+				$.post("/ajax/emailCheck",
+						{
+							reciver: $("#join_email").val()
+						},
+						 function(data, status){
+							alert("메일을 발송하였습니다");
+						});
+			} else {
+				$("#footer_text").text("mail 입력을 확인하세요");
+			}
+			//해당 메일로 보낸다.
+			
+		
+		},
+		join_request : function() {
+			//걍 폼체크
+			if( $("#join_email").val() == "") {
+				$("#footer_text").text("mail 칸이 비어있습니다.");
+			}
+			else if ($("#join_email").prop("invalid") == true) {
+				$("#footer_text").text("mail 입력양식을 확인하세요");
+			} 
+			else if ($("#join_first_password").val() == "") {
+				$("#footer_text").text("첫번쨰 password 칸이 비어있습니다.");
+			} 
+			else if ($("#join_fisrt_password").prop("invalid") == true) {
+				$("#footer_text").text("비밀번호 입력양식을 확인하세요");
+			} 
+			else if ($("#join_second_password").val() == "") {
+				$("#footer_text").text("두번쨰 password 칸이 비어있습니다.");
+			} 
+			else if ($("#join_second_password").prop("invalid") == true) {
+				$("#footer_text").text("비밀번호 입력양식을 확인하세요");
+			}
+			else if ($("#join_first_password").val() != $("#join_second_password").val()) {
+				$("#footer_text").text("password 입력이 일치하지 않습니다.");
+			}
+			else if ($("#join_name").val() == "") {
+				$("#footer_text").text("name칸이 비어있습니다.");
+			} 
+			else if ($("#join_name").prop("invalid") == true) {
+				$("#footer_text").text("이름 입력양식을 확인하세요");
+			}
+			else {
+				//mail, code, password, name를 ajax로 보내고 결과로 상태값 혹은 boolean을 받는다.
+				
+				$.post("/ajax/join_request",
+					{
+						email : $("#join_email").val(),
+						check_code : $("#join_email_checker").val(),
+						password : $("#join_first_password").val(),
+						name : $("#join_name").val()
+					},
+					function(data, status){
+						if (data.resultInt == 1) {
+							$("#footer_text").text("인증한 메일과 입력한 메일이 잘못되었습니다.");
+						} else if (data.resultInt == 2) {
+							$("#footer_text").text("메일 확인을 위한 코드입력이 잘못되었습니다.");
+						} else {
+							//완료후 페이지 이동?
+							
+							$("#footer_text").text("확인완료");
+						}
+					});
+				
+				$("#footer_text").text("완성");
+			}
+
+		}
+		
+
+	});
+	
+	var join_modal = document.createElement("nshpage-join-modal");
+	$(function() {
+		$("#join_email_clear").click(function(){
+			join_modal.join_email_clear();
+		});
+		$("#join_email_checker_clear").click(function(){
+			join_modal.join_mail_code_clear();
+		});
+		$("#join_first_password_clear").click(function(){
+			join_modal.join_first_password_clear();
+		});
+		$("#join_second_password_clear").click(function(){
+			join_modal.join_second_password_clear();
+		});
+		$("#join_name_clear").click(function(){
+			join_modal.join_name_clear();
+		});
+		
+		$("#join_send_email_code").click(function(){
+			join_modal.send_code();
+		});
+		$("#join_request").click(function(){
+			join_modal.join_request();
+		});
+		
+		$("#join").click(function(){
+			$("#join-modal").modal("show");
+		})
+		
+	})
+</script> 
+</dom-module>

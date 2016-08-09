@@ -1,0 +1,44 @@
+
+
+.board-content-bold {
+		font-weight: bold;
+}
+
+.board-content-line-through {
+	text-decoration: line-through;
+}
+
+.board-content-underline {
+	text-decoration: underline;
+}
+
+.board-content-font-size-defult {
+	font-size: 16px;
+}
+.board-content-font-size10 {
+	font-size: 10px;
+}
+.board-content-font-size12 {
+	font-size: 12px;
+}
+.board-content-font-size14 {
+	font-size: 14px;
+}
+.board-content-font-size18 {
+	font-size: 18px;
+}
+.board-content-font-size22 {
+	font-size: 22px;
+}
+.board-content-font-size28 {
+	font-size: 28px;
+}
+.board-content-font-size34 {
+	font-size: 34px;
+}
+.board-content-font-size40 {
+	font-size: 40px;
+}
+.board-content-font-size50 {
+	font-size: 50px;
+}
