@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nshpage.dto.Board;
 import com.nshpage.service.BoardServiceImpl;
+import com.nshpage.vo.Board;
 
 @Controller
 public class BaseBoardController {

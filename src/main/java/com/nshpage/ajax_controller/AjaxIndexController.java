@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nshpage.controller.IndexController;
-import com.nshpage.dto.User;
 import com.nshpage.models.SMTPAuthenticatior;
+import com.nshpage.vo.User;
 
 @RestController
 public class AjaxIndexController {

@@ -2,7 +2,7 @@ package com.nshpage.service;
 
 import java.util.List;
 
-import com.nshpage.dto.Board;
+import com.nshpage.vo.Board;
 
 public interface BoardService {
 	public List<Board> getAllBoard(int category_id) throws Exception;

@@ -1,8 +1,8 @@
-package com.nshpage.dao;
+package com.nshpage.repository;
 
 import java.util.List;
 
-import com.nshpage.dto.Board;
+import com.nshpage.vo.Board;
 
 public interface BoardDAO {
 	public List<Board> getAllBoard(int category_id) throws Exception;

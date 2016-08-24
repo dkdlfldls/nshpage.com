@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nshpage.controller.IndexController;
-import com.nshpage.dao.UserDAO;
-import com.nshpage.dto.User;
+import com.nshpage.repository.UserDAO;
+import com.nshpage.vo.User;
 
 @Service
 public class UserServiceImpl implements UserService {

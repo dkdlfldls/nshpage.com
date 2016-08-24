@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nshpage.controller.IndexController;
-import com.nshpage.dto.Mail;
-import com.nshpage.dto.Result;
-import com.nshpage.dto.User;
 import com.nshpage.models.SMTPAuthenticatior;
 import com.nshpage.models.UserCodeMaker;
 import com.nshpage.service.UserServiceImpl;
+import com.nshpage.vo.Mail;
+import com.nshpage.vo.Result;
+import com.nshpage.vo.User;
 
 @RestController
 public class AjaxUserController {

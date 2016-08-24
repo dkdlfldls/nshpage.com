@@ -1,8 +1,8 @@
-package com.nshpage.dao;
+package com.nshpage.repository;
 
 import java.util.List;
 
-import com.nshpage.dto.User;
+import com.nshpage.vo.User;
 
 public interface UserDAO {
 	public void create(User user) throws Exception;

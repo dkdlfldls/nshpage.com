@@ -1,4 +1,4 @@
-package com.nshpage.dto;
+package com.nshpage.vo;
 
 public class User {
 	private int user_id;

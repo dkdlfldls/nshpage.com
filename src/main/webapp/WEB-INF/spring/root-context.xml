@@ -31,5 +31,6 @@
 	<context:component-scan base-package="com.nshpage.interfaces"></context:component-scan>
 	<context:component-scan base-package="com.nshpage.models"></context:component-scan>
 	<context:component-scan base-package="com.nshpage.service"></context:component-scan>
-	<context:component-scan base-package="com.nshpage.dao"></context:component-scan>
+	<context:component-scan base-package="com.nshpage.repository"></context:component-scan>
+	<context:component-scan base-package="com.nshpage.vo"></context:component-scan>
 </beans>

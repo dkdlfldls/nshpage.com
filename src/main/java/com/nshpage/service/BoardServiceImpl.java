@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.nshpage.dao.BoardDAO;
-import com.nshpage.dto.Board;
+import com.nshpage.repository.BoardDAO;
+import com.nshpage.vo.Board;
 
 @Service
 public class BoardServiceImpl implements BoardService{
