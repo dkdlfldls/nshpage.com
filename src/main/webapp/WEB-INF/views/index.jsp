@@ -14,6 +14,8 @@
 <link rel="import" href="/resources/elements/nshpage-join-modal.html">
 <link rel="import" href="/resources/elements/nshpage-basic-board.jsp">
 
+<link rel="stylesheet" href="/resources/css/top_nev.css">
+
 <script type="text/javascript">
 
 var app = angular.module('myApp', []);
@@ -40,17 +42,18 @@ var app = angular.module('myApp', []);
 <title>Home</title>
 </head>
 <body>
-
-	<nshpage-top-nev></nshpage-top-nev>
 	
-	<div class="row">
-		<div class="col-sm-2">
-			<nshpage-left-nev></nshpage-left-nev>
-		</div>
-		<div class="col-sm-8"></div>
-		<div class="col-sm-2"></div>
-		</div>
+	<div class="top-nev">
+	
+		<table class="top-nev-table">
+			<tr>
+				<td colspan="2" >
+					<jsp:include page="nshpage_nev/nshpage-top-nev.jsp"></jsp:include>
+				</td>
+			</tr>
+		</table>
 	</div>
+	
 	
 	
 	<!-- Trigger the modal with a button -->
