@@ -51,6 +51,10 @@ var app = angular.module('myApp', []);
 					<jsp:include page="nshpage_nev/nshpage-top-nev.jsp"></jsp:include>
 				</td>
 			</tr>
+			<tr>
+				<td>왼쪽메뉴자리</td>
+				<td>세부 내용 자리</td>
+			</tr>
 		</table>
 	</div>
 	

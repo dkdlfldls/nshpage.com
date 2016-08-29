@@ -14,11 +14,35 @@
 	
 }
 .top-table-nev {
-	background-color : #9494b8;
+	/*background-image : url("../image/pattern/pattern2.png");
+	background-repeat : repeat;*/
+	background-color : #1a75ff;
 	width: 100%;
 	height : 50px;
 }
 
+.top-nev-home {
+	margin : 4px;
+	margin-left : 10px;
+	margin-right : 10px;
+	width : 52px;
+	height : 50px;
+	display : inline-block;
+	float : left;
+	background-color: #ffffff;
+	box-shadow : 2px 2px 5px rgba(0,0,0,10); 
+	
+	
+}
+.top-nev-home:HOVER  {
+	box-shadow : 5px 5px 8px rgba(0,0,0,10); 
+}
+
+.top-nev-home-image {
+	width: 52;
+	height: 52;
+	
+}
 
 .top-nev-left-item {
 	padding : 10px;
@@ -28,7 +52,8 @@
 	
 	width: auto;
 	height : 100%;
-	background-color: #d1d1e0;
+	background-color: #ffffff;
+	color: #001a33;
 	box-shadow : 2px 2px 5px rgba(0,0,0,10); 
 	
 }
@@ -45,7 +70,8 @@
 	
 	width: auto;
 	height : 100%;
-	background-color: #d1d1e0;
+	background-color: #ffffff;
+	color: #001a33;
 	box-shadow : 2px 2px 5px rgba(0,0,0,10); 
 }
 
