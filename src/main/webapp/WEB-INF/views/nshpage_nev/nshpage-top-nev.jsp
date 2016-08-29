@@ -11,10 +11,10 @@
 			 	<td class="top-nev-home"><img class="top-nev-home-image" src="/resources/image/home/home1.png" ></td>
 			    <td class="top-nev-left-item">Column 1 HeadingHeadingHeading</td>
 			    <td class="top-nev-left-item">Column 2 Heading</td>
-			    <c:if test="${sessionScope.isLogin eq true}">
-				   	<td class="top-nev-right-item">Logout</td>			    	
+			    <c:if test="${sessionScope.login eq true}">
+				   	<td class="top-nev-right-item" onclick="logout_request()">Logout</td>			    	
 			    </c:if>
-			    <c:if test="${sessionScope.isLogin ne true}">
+			    <c:if test="${sessionScope.login ne true}">
 			   		<td class="top-nev-right-item" id="join">Join</td>
 				   	<td class="top-nev-right-item" id="login">Login</td>			    	
 			    </c:if>
@@ -24,4 +24,37 @@
 
 </div>
 
+<script>
+$(function(){
+	check_login();
+});
 
+logout_request = function(){
+	var change_login_btn = this.change_login_btn;
+	$.post(
+		"/ajax/logout",
+		{},
+		function(data, status){
+			if (data == true) {
+				location.href="";
+			}
+		}
+	)
+};
+check_login = function(){
+	var change_logout_btn = this.change_logout_btn;
+	var change_login_btn = this.change_login_btn;
+	$.post(
+			"/ajax/checkLogin",
+			{ },
+			function(data, status){
+				
+				if (data == true) {
+					change_logout_btn();
+				} else {
+					change_login_btn();
+				}
+			}
+		)
+};
+</script>
