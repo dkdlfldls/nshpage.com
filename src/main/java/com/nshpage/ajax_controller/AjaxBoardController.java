@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,8 @@ public class AjaxBoardController {
 	@Inject
 	private UserServiceImpl userService;
 	
-	private static final IpGather ipGather = new IpGather();
+	@Autowired
+	private IpGather ipGather;
 	
 	@RequestMapping(value="/ajax/board/getAllList", method=RequestMethod.POST)
 	public List<Board> getAllBoard(@RequestParam("category_id") int category_id) throws Exception {

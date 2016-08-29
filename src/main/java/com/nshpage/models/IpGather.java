@@ -2,7 +2,9 @@ package com.nshpage.models;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class IpGather {
 	
 	public String ip(HttpServletRequest req) {

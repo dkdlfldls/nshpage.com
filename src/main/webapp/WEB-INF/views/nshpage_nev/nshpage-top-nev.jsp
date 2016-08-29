@@ -11,8 +11,13 @@
 			 	<td class="top-nev-home"><img class="top-nev-home-image" src="/resources/image/home/home1.png" ></td>
 			    <td class="top-nev-left-item">Column 1 HeadingHeadingHeading</td>
 			    <td class="top-nev-left-item">Column 2 Heading</td>
-			   	<td class="top-nev-right-item">Column 3 Heading</td>
-			   	<td class="top-nev-right-item">Column 4 Heading</td>
+			    <c:if test="${sessionScope.isLogin eq true}">
+				   	<td class="top-nev-right-item">Logout</td>			    	
+			    </c:if>
+			    <c:if test="${sessionScope.isLogin ne true}">
+			   		<td class="top-nev-right-item" id="join">Join</td>
+				   	<td class="top-nev-right-item" id="login">Login</td>			    	
+			    </c:if>
 			 </tr>
 		</tbody>
 	</table>

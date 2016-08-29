@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,13 +28,14 @@ public class AjaxUserController {
 	@Inject
 	private UserServiceImpl userService;
 	
+	@Autowired
+	private SMTPAuthenticatior smtp;
+	@Autowired
+	private UserCodeMaker codeMaker;
+	
 	@RequestMapping(value="/ajax/emailCheck", method=RequestMethod.POST)
 	public void sendMail(Mail mailInfo, HttpSession session) {
 		
-		//인증코드 만드는 객체
-		UserCodeMaker codeMaker = new UserCodeMaker();
-		//메일을 보내는 객체
-		SMTPAuthenticatior smtp = new SMTPAuthenticatior();
 		String code = codeMaker.makeCode();
 		//session에 mail정보 저장
 		session.setAttribute("check_code", code);

@@ -2,9 +2,12 @@ package com.nshpage.models;
 
 import java.util.Random;
 
+import org.springframework.stereotype.Component;
+
 import com.nshpage.interfaces.CodeMaker;
 
 //bcrypt를 통한 암호화 이러다보니 decode불가능
+@Component
 public class UserCodeMaker implements CodeMaker{
 	private static String[] charArr = {"a","b","c","d"
 			,"e","f","g","h","i"

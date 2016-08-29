@@ -11,7 +11,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class SMTPAuthenticatior extends Authenticator {
 	private static String sender = "dkdlfldls@naver.com";
 	private static String id = "dkdlfldls";

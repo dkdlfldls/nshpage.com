@@ -60,7 +60,7 @@ paper-button.login {
 						<p class="login-warning-text" id="login_footer_text"></p>
 					</div>
 					<div class="col-sm-8">
-						<paper-button raised class="login" id="login_button">로그인</paper-button>
+						<paper-button raised class="login" id="login_request">로그인</paper-button>
 						<paper-button raised class="login" id="login_find_password">비밀번호찾기</paper-button>
 						<paper-button raised class="login" id="login_join">회원가입</paper-button>
 						<paper-button raised class="login" data-dismiss="modal">취소</paper-button>
@@ -140,8 +140,9 @@ paper-button.login {
 
 	});
 	var login_modal = document.createElement("nshpage-login-modal");
+	
 	$(function() {
-		$("#login_button").click(function() {
+		$("#login").click(function() {
 			login_modal.login();
 		});
 
