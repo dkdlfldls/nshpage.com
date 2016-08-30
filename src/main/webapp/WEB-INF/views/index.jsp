@@ -14,7 +14,7 @@
 <link rel="import" href="/resources/elements/nshpage-join-modal.html">
 <link rel="import" href="/resources/elements/nshpage-basic-board.jsp">
 
-<link rel="stylesheet" href="/resources/css/top_nev.css">
+<link rel="stylesheet" href="/resources/css/index.css">
 
 <script type="text/javascript">
 
@@ -52,8 +52,8 @@ var app = angular.module('myApp', []);
 				</td>
 			</tr>
 			<tr>
-				<td><jsp:include page="nshpage_nev/nshpage-left-nev.jsp"></jsp:include></td>
-				<td>세부 내용 자리</td>
+				<td class="left-nev-td"><jsp:include page="nshpage_nev/nshpage-left-nev.jsp"></jsp:include></td>
+				<td class="content">세부 내용 자리</td>
 			</tr>
 		</table>
 	</div>

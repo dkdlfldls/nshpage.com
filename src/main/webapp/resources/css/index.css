@@ -84,3 +84,12 @@
 .top-nev-right-item:ACTIVE {
 	background-color: #6666ff;
 }
+
+
+
+.left-nev-td {
+	width: 15%;
+}
+.content {
+	width : 85%;
+}
