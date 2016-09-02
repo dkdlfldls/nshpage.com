@@ -6,15 +6,13 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nshpage.controller.IndexController;
 import com.nshpage.models.SMTPAuthenticatior;
 import com.nshpage.models.UserCodeMaker;
-import com.nshpage.service.UserServiceImpl;
+import com.nshpage.service.UserService;
 import com.nshpage.vo.Mail;
 import com.nshpage.vo.Result;
 import com.nshpage.vo.User;
@@ -26,7 +24,7 @@ public class AjaxUserController {
 	private static final String CHECK_MAIL_TITLE = "nshpage.com 가입을 위한 본인인증 코드 발송입니다.";
 
 	@Inject
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Autowired
 	private SMTPAuthenticatior smtp;
@@ -71,6 +69,7 @@ public class AjaxUserController {
 	@RequestMapping("/ajax/checkLogin")
 	public boolean checkLogin(HttpSession session) {
 		logger.info("check login request");
+		
 		if(session.getAttribute("login") != null && (boolean)session.getAttribute("login")) {
 			return true;
 		} else {

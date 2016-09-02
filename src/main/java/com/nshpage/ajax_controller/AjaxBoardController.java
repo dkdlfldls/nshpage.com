@@ -16,8 +16,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.nshpage.models.IpGather;
-import com.nshpage.service.BoardServiceImpl;
-import com.nshpage.service.UserServiceImpl;
+import com.nshpage.service.BoardService;
+import com.nshpage.service.UserService;
 import com.nshpage.vo.Board;
 
 @RestController
@@ -25,10 +25,10 @@ public class AjaxBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(AjaxBoardController.class);
 
 	@Inject
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 	
 	@Inject
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Autowired
 	private IpGather ipGather;

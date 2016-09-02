@@ -25,9 +25,6 @@
 </div>
 
 <script>
-$(function(){
-	check_login();
-});
 
 logout_request = function(){
 	var change_login_btn = this.change_login_btn;
@@ -41,20 +38,5 @@ logout_request = function(){
 		}
 	)
 };
-check_login = function(){
-	var change_logout_btn = this.change_logout_btn;
-	var change_login_btn = this.change_login_btn;
-	$.post(
-			"/ajax/checkLogin",
-			{ },
-			function(data, status){
-				
-				if (data == true) {
-					change_logout_btn();
-				} else {
-					change_login_btn();
-				}
-			}
-		)
-};
+
 </script>

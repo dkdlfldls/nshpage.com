@@ -8,7 +8,7 @@ public class User {
 	private String name;
 	private String reg_date;
 	private int state;
-	
+	private int authority_level;
 	
 	
 	public String getCheck_code() {
@@ -52,6 +52,12 @@ public class User {
 	}
 	public void setState(int state) {
 		this.state = state;
+	}
+	public int getAuthority_level() {
+		return authority_level;
+	}
+	public void setAuthority_level(int authority_level) {
+		this.authority_level = authority_level;
 	}
 	
 	

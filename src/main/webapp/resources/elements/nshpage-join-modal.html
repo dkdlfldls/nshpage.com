@@ -257,8 +257,10 @@ paper-button.join {
 							$("#footer_text").text("메일 확인을 위한 코드입력이 잘못되었습니다.");
 						} else {
 							//완료후 페이지 이동?
+							alert("join 완료");
+							$("#join-modal").modal("hide");
 							
-							$("#footer_text").text("확인완료");
+							//$("#footer_text").text("확인완료");
 						}
 					});
 				
