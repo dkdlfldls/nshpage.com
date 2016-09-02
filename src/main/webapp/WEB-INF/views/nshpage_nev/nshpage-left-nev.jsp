@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 @media (min-width: 768px) {
   .navbar-collapse {
@@ -44,6 +45,7 @@
 	height: 100%;
 }
 </style>
+
 
 
 
@@ -103,3 +105,4 @@
   	<a class="navbar-brand" href="#">category 제거</a>
   </div>
 </nav>
+
